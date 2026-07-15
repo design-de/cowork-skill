@@ -5,6 +5,7 @@
 
 ## โครงสร้าง
 
+<!-- MODEL:START · generate จาก cowork-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
 ```
 Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Task (งาน) → Checklist (ติ๊กย่อยในงาน)
 ```
@@ -14,6 +15,7 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 - **Stage** = "ช่วงงาน" ที่ใช้จัดกลุ่ม task เช่น Research / Design / Production · แต่ละ stage สังกัด **เฟลเดียว** (pitch หรือ work)
 - **Task** = งานย่อย มีสถานะ/ความสำคัญ/ผู้รับผิดชอบ/ช่วงเวลา/ชั่วโมง
 - **Checklist** = รายการติ๊กย่อยในแต่ละ task (import ทาง .xlsx ยังไม่แตะ checklist)
+<!-- MODEL:END -->
 
 ## 2 เฟสของโปรเจกต์: pitch vs work
 
