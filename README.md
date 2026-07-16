@@ -1,45 +1,53 @@
-# Cowork skill
+# Cowork skills
 
-Claude skill ที่สอน AI ให้ "เข้าใจระบบ Cowork" — ช่วยวางแผนงาน จำลอง task
-และสร้างไฟล์ `.xlsx` เพื่อ import งานกลับเข้าโปรเจกต์ได้ โดยผ่านหน้า preview
-ให้คนอนุมัติเสมอ (AI เสนอ — คนตัดสิน)
+ตระกูล Claude skill ที่สอน AI ให้ทำงานกับ **Cowork** (แอปจัดการงานของทีม) ได้เก่งขึ้น
+โครง Cowork: **Client → Project → Stage (ช่วงงาน) → Task (งาน) → Checklist**
 
-> นี่คือก้าวแรก (เฟส 0.5) ของทิศทางที่ใหญ่กว่า: ปลายทางคือ Cowork เปิดเป็น **API/MCP**
-> ให้แต่ละคนทำงานผ่าน AI ของตัวเอง โดยแพลตฟอร์มเป็น "กรรมการถือกติกา" ให้ทุกคนเห็นภาพเดียวกัน
+> ทิศทางใหญ่: Cowork เปิดเป็น **API/MCP** ให้แต่ละคนทำงานผ่าน AI ของตัวเอง โดยแพลตฟอร์มเป็น
+> "กรรมการถือกติกา" (RLS + สิทธิ์ + ไม่มีลบถาวร + activity log) ให้ทุกคนเห็นภาพเดียวกัน
+> skill พวกนี้คือ "สมองเสริม" ที่ทำงาน **คู่กับ** connector — ไม่ใช่ทดแทน
 
-## มีอะไรในนี้
+## skill ในตระกูลนี้
 
-| ไฟล์ | คืออะไร |
-|---|---|
-| [SKILL.md](SKILL.md) | ตัว skill — AI อ่านไฟล์นี้ก่อน (มี frontmatter name/description) |
-| [reference/tasks-contract.md](reference/tasks-contract.md) | สัญญาไฟล์ import ครบทุกคอลัมน์+กติกา (**generate จากตัวแอป — ห้ามแก้มือ**) |
-| [reference/system-context.md](reference/system-context.md) | บริบทระบบ: เฟส pitch/work, บทบาท, Stage, การประเมินเวลา |
-| [scripts/make_import_xlsx.py](scripts/make_import_xlsx.py) | สคริปต์สร้าง `.xlsx` ที่ import ได้ (ต้องมี `openpyxl`) |
+แต่ละ skill อยู่ในโฟลเดอร์ของตัวเอง (มี `SKILL.md`) แยกตาม **"งานที่คนอยากได้"** ไม่ใช่ตามช่องทาง
+
+| Skill | ไว้ทำอะไร | ช่องทาง |
+|---|---|---|
+| [`cowork-use`](cowork-use/SKILL.md) | **ตัวฐาน** — วิธีขับ connector ให้ถูกและปลอดภัย (กติกา, filter ก่อน, bulk tools, สิทธิ์, เมื่อไรควรหยุดถาม) โหลดก่อนงาน connector ทุกครั้ง | สด (MCP) |
+| [`cowork-plan`](cowork-plan/SKILL.md) | **วางแผนจากบรีฟ** — เปลี่ยนบรีฟเป็น stage → task → ประเมิน → มอบหมาย | สด / ไฟล์ |
+| [`cowork-import`](cowork-import/SKILL.md) | **สายไฟล์** — สร้าง `.xlsx` เพื่อ import (ตอนไม่มี connector หรือขอเป็นไฟล์) | ไฟล์ |
+
+**กำลังจะมา (คลื่น 2):** `cowork-status` (รายงานสถานะ/สุขภาพ) · `cowork-allocation` (เกลี่ยงาน/คาแพซิตี้) · `cowork-triage` (ดูแลบอร์ดเดิม/รับมือความเปลี่ยนแปลง)
 
 ## วิธีติดตั้ง (Claude Code)
 
-โคลน repo นี้แล้ววางในโฟลเดอร์ skills ของ Claude Code — เช่น
-`~/.claude/skills/cowork/` (หรือ `.claude/skills/cowork/` ในโปรเจกต์)
-แล้ว Claude จะเรียกใช้เองเมื่อคุณพูดถึงงาน Cowork
+แต่ละ skill = โฟลเดอร์หนึ่งใต้ `~/.claude/skills/` โคลน repo แล้ววางโฟลเดอร์ skill ที่ต้องการ (หรือ symlink ทั้งชุด):
 
 ```bash
-git clone <repo-url> ~/.claude/skills/cowork
+git clone <repo-url> ~/cowork-skill
+ln -s ~/cowork-skill/cowork-use   ~/.claude/skills/cowork-use
+ln -s ~/cowork-skill/cowork-plan  ~/.claude/skills/cowork-plan
+ln -s ~/cowork-skill/cowork-import ~/.claude/skills/cowork-import
 ```
 
-อัปเดตเป็นเวอร์ชันล่าสุดเมื่อไหร่ก็ `git pull` ในโฟลเดอร์นั้น
+อัปเดตล่าสุดเมื่อไหร่ก็ `git pull` ในโฟลเดอร์ repo
 
-## วิธีใช้ (คร่าวๆ)
+> **ย้ายโครงสร้าง:** เดิม skill ชื่อ `cowork` ตัวเดียว ตอนนี้แตกเป็นตระกูล — ตัวสายไฟล์เดิมกลายเป็น
+> `cowork-import` ใครลง `cowork` ไว้ ให้ลบตัวเก่าแล้ว symlink ใหม่ตามด้านบน
 
-1. บอก AI ว่าอยากวางแผน/เพิ่มงานในโปรเจกต์ Cowork ไหน
-2. ถ้ามีไฟล์ Export ของโปรเจกต์นั้น ให้แนบไปด้วย (AI จะได้รู้ Stage/ทีม/PROJECT_ID ที่ถูกต้อง)
-3. AI เสนอแผน → สร้างไฟล์ `.xlsx`
-4. เปิดโปรเจกต์ใน Cowork → ปุ่ม **Import** → อัปโหลด → ตรวจในหน้า **preview** → กดยืนยัน
+## เชื่อม MCP connector
 
-## สำคัญ: การ sync
+ถ้าใช้ Cowork ผ่าน MCP อยู่แล้ว connector จะส่ง "สมองย่อ" (บริบทระบบ) ให้อัตโนมัติตอนเชื่อม —
+skill เหล่านี้คือเวอร์ชัน **ลงลึก** ที่โหลดเฉพาะตอนทำงานนั้นๆ (เหมือน `figma-use` ของ Figma)
 
-ต้นฉบับความจริงของ "สัญญาไฟล์" อยู่ที่เดียว **ในตัวแอป**
-(`cowork-app/lib/taskImportContract.mjs`) — ทั้งชีต AI Guide ตอน export และ
-[reference/tasks-contract.md](reference/tasks-contract.md) ในนี้ อ่านจากไฟล์นั้น
-ทุกครั้งที่แก้สัญญาในแอป ให้รัน `node scripts/gen-skill-contract.mjs` ในโปรเจกต์แอป
-เพื่อ regenerate ไฟล์สัญญาใน repo นี้แล้ว commit ตาม (ไม่งั้น AI จะสร้างไฟล์ตามกติกาเก่า)
-ดูวันที่ generate ล่าสุดที่หัวไฟล์ [reference/tasks-contract.md](reference/tasks-contract.md)
+## สำคัญ: การ sync (กัน drift)
+
+ความรู้ที่ใช้ร่วมกันมี **ต้นฉบับเดียวในตัวแอป** — skill ไม่พิมพ์ซ้ำเอง:
+
+| เนื้อหา | ต้นฉบับในแอป | generator | ไปโผล่ที่ |
+|---|---|---|---|
+| โครงโมเดล (Project→Stage→Task) | `lib/modelContext.js` | `node scripts/gen-skill-context.mjs` | ทุกไฟล์ที่มี marker `<!-- MODEL:START/END -->` |
+| สัญญาไฟล์ import | `lib/taskImportContract.js` | `node scripts/gen-skill-contract.mjs` | `cowork-import/reference/tasks-contract.md` |
+
+แก้ต้นฉบับในแอป → รัน generator ที่เกี่ยว → commit repo นี้ตาม (ไม่งั้น skill จะสอนของเก่า)
+เจ้าของงานนี้ = agent **`integrations-steward`** ในฝั่งแอป

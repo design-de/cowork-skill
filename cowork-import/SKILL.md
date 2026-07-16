@@ -1,33 +1,27 @@
 ---
-name: cowork
+name: cowork-import
 description: >-
-  Use when helping someone plan or manage work for the Cowork project app —
-  understanding their projects/tasks, drafting or simulating tasks, or proposing
-  a project plan. FIRST prefer the Cowork connector (MCP) when its tools are
-  available — read and act on live data directly, never tell the user "Cowork
-  has no API". Fall back to producing an .xlsx file for import only when no
-  connector is available or the user asks for a file. Covers Cowork's
-  project/stage/phase/task model, team roles, and the exact import-file contract
-  so a file loads cleanly and a human can approve it in the app.
+  Build a Cowork-ready `.xlsx` import file — for planning offline, or when NO
+  Cowork connector (MCP) is available. Use when the user asks for a file, has no
+  live Cowork tools, or wants to prepare tasks to upload and approve in the app's
+  Import preview. Covers the exact import-file contract (columns, rules) so the
+  file loads cleanly. If the Cowork connector IS available, prefer working live —
+  load `cowork-use` (and `cowork-plan` for planning from a brief) instead of
+  making a file.
 ---
 
-# Cowork skill
+# Cowork — import file (.xlsx)
 
-Cowork คือแอปจัดการงาน/โปรเจกต์ของทีม โครงคือ **Project → Stage (ช่วงงาน) → Task (งาน) → Checklist**
-skill นี้ทำให้ AI ของคุณ "เข้าใจระบบ Cowork" — ช่วย **วางแผนงาน จำลอง task และลงมือจัดการงานจริง** ได้ 2 ทาง: ผ่าน **connector (สด)** หรือผ่าน **ไฟล์ export/import**
+skill นี้ = **สายไฟล์** ของ Cowork: ช่วย AI สร้างไฟล์ `.xlsx` ที่อัปโหลดเข้าโปรเจกต์ได้ ผ่านหน้า preview ให้คนอนุมัติเสมอ (AI เสนอ — คนตัดสิน)
+โครง Cowork คือ **Project → Stage (ช่วงงาน) → Task (งาน) → Checklist**
 
-## ⭐ ก่อนอื่น — เช็คว่ามี connector ไหม (สำคัญสุด อ่านก่อนทุกครั้ง)
+## ⭐ ก่อนอื่น — มี connector ไหม (ถ้ามี นี่ไม่ใช่ skill ที่ควรใช้)
 
-**ดูก่อนว่าตอนนี้คุณมีเครื่องมือ (tools) ของ Cowork ให้เรียกอยู่หรือเปล่า** — เช่น `list projects`, `get me`, `create task`, `assign task` (พวกนี้มาจาก **Cowork MCP connector**)
+ถ้ามีเครื่องมือ Cowork ให้เรียก (`list_projects`, `create_task`, `assign_task` …) แปลว่า **เชื่อม connector สดอยู่** — ทางสดดีกว่าไฟล์:
 
-- **ถ้ามี → ใช้ connector เป็นหลักเสมอ** อ่านโปรเจกต์/งาน/ทีม และสร้าง/แก้/มอบหมายงาน **สดผ่าน tool ได้เลย**
-  - **ห้าม**บอกผู้ใช้ว่า "Cowork ไม่มี API" หรือให้ไป export ไฟล์ — มีทางสดอยู่แล้ว ให้เรียก tool ตรงๆ
-  - งานเขียน (create/update/assign) connector จะให้ผู้ใช้กดอนุมัติทีละครั้งเองอยู่แล้ว — ทำได้เลย ไม่ต้องกลัว
-- **ถ้าไม่มี tools พวกนั้น → ใช้ทางไฟล์ export/import ตามคู่มือด้านล่าง**
-- **ถ้าผู้ใช้อยากทำเป็นไฟล์เอง** (วางแผนออฟไลน์ / ทำ .xlsx) แม้จะเชื่อม connector อยู่ → ทำตามที่ผู้ใช้เลือกได้
-
-> สรุป: **connector = ทางหลัก (สด) · ไฟล์ export/import = ทางสำรอง หรือเมื่อผู้ใช้เลือก**
-> ส่วนที่เหลือของ skill นี้ = รายละเอียดของทางไฟล์ + ความรู้เรื่องโครงสร้าง Cowork (ใช้ได้กับทั้งสองทาง)
+- ไปโหลด **`cowork-use`** (วิธีขับ connector ให้ถูก) และ **`cowork-plan`** (วางแผนจากบรีฟ) แล้วทำงานสดผ่าน tool
+- **ห้าม**บอกผู้ใช้ว่า "Cowork ไม่มี API" แล้วบังคับให้ทำไฟล์
+- **ใช้ skill นี้ต่อเมื่อ:** ไม่มี connector · หรือผู้ใช้ขอเป็นไฟล์เอง (วางแผนออฟไลน์ / เก็บไว้ก่อน)
 
 ## กติกาทอง (อ่านก่อนเสมอ)
 
@@ -38,11 +32,11 @@ skill นี้ทำให้ AI ของคุณ "เข้าใจระ�
 
 ## ใช้ skill นี้เมื่อ
 
-- ผู้ใช้อยากให้ช่วย **วางแผน/จำลองงาน** ของโปรเจกต์ Cowork ("วางแผน pitch 3 สัปดาห์ ทีม 4 คน")
-- อยาก **สร้างไฟล์ .xlsx เพื่อ import** งานเข้าโปรเจกต์
-- ถามเรื่องโครงสร้าง เฟส บทบาท หรือกติกาของ Cowork
+- อยาก **สร้างไฟล์ .xlsx เพื่อ import** งานเข้าโปรเจกต์ (ไม่มี connector / ขอเป็นไฟล์)
+- วางแผนงานแบบ **ออฟไลน์** เพื่อเก็บไว้อัปโหลดทีหลัง
+- ถามเรื่อง **สัญญาไฟล์** import (คอลัมน์/กติกา) — สำหรับการวางแผนเชิงเนื้อหา (เฟส/บทบาท/ประเมินเวลา) ดู `cowork-plan`
 
-## ขั้นตอนแนะนำ (ทางไฟล์ export/import — ใช้เมื่อ "ไม่มี" connector หรือผู้ใช้เลือกทำเป็นไฟล์)
+## ขั้นตอนแนะนำ (สายไฟล์)
 
 1. **ขอไฟล์ Export ก่อนถ้ามี** — ในแอปมีปุ่ม Export ได้ .xlsx ที่มี PROJECT_ID, รายชื่อ Stage ที่ใช้ได้, และรายชื่อทีม (อีเมล) การเริ่มจากไฟล์นี้ทำให้ Stage/คน/โปรเจกต์ตรงกันอัตโนมัติ แล้วคุณแค่ "เติม/แก้แถว"
 2. **ถ้าไม่มีไฟล์** ก็สร้างใหม่จากศูนย์ได้ แต่ต้องรู้ชื่อ Stage และอีเมลทีมที่มีจริง (ถามผู้ใช้) เพราะชื่อที่ไม่ตรงจะถูกตีกลับในหน้า preview

@@ -2,7 +2,7 @@
 
 > **ไฟล์นี้ถูก generate อัตโนมัติ** จาก `cowork-app/lib/taskImportContract.js` — อย่าแก้ด้วยมือ
 > แก้สัญญาในแอปแล้วรัน `node scripts/gen-skill-contract.mjs` เพื่ออัปเดตไฟล์นี้ให้ตรงกัน
-> Format version: 1 · generated: 2026-07-15
+> Format version: 1 · generated: 2026-07-16
 
 ตอน import แอปอ่านชีตชื่อ **`Tasks`** เท่านั้น
 จับคอลัมน์จากข้อความหัวตาราง — ห้ามแก้หัว · แถวหัวตาราง = แถวที่คอลัมน์ A เขียนว่า "Title" (ในไฟล์ Export จริงอยู่แถวที่ 4)
