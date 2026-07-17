@@ -16,8 +16,9 @@
 | [`cowork-use`](cowork-use/SKILL.md) | **ตัวฐาน** — วิธีขับ connector ให้ถูกและปลอดภัย (กติกา, filter ก่อน, bulk tools, สิทธิ์, เมื่อไรควรหยุดถาม) โหลดก่อนงาน connector ทุกครั้ง | สด (MCP) |
 | [`cowork-plan`](cowork-plan/SKILL.md) | **วางแผนจากบรีฟ** — เปลี่ยนบรีฟเป็น stage → task → ประเมิน → มอบหมาย | สด / ไฟล์ |
 | [`cowork-import`](cowork-import/SKILL.md) | **สายไฟล์** — สร้าง `.xlsx` เพื่อ import (ตอนไม่มี connector หรือขอเป็นไฟล์) | ไฟล์ |
-
-**กำลังจะมา (คลื่น 2):** `cowork-status` (รายงานสถานะ/สุขภาพ) · `cowork-allocation` (เกลี่ยงาน/คาแพซิตี้) · `cowork-triage` (ดูแลบอร์ดเดิม/รับมือความเปลี่ยนแปลง)
+| [`cowork-status`](cowork-status/SKILL.md) | **รายงานสถานะ/สุขภาพ** — readout "เราเป็นไงบ้าง" (อ่านล้วน) | สด (MCP) |
+| [`cowork-allocation`](cowork-allocation/SKILL.md) | **เกลี่ยงาน/คาแพซิตี้** — ใครว่าง/ใครล้น แล้วย้ายงานให้สมดุล | สด (MCP) |
+| [`cowork-triage`](cowork-triage/SKILL.md) | **ดูแลบอร์ดเดิม** — เลื่อนวัน/rename/reassign/merge/restore เป็นชุด | สด (MCP) |
 
 ## วิธีติดตั้ง (Claude Code)
 
@@ -25,9 +26,9 @@
 
 ```bash
 git clone <repo-url> ~/cowork-skill
-ln -s ~/cowork-skill/cowork-use   ~/.claude/skills/cowork-use
-ln -s ~/cowork-skill/cowork-plan  ~/.claude/skills/cowork-plan
-ln -s ~/cowork-skill/cowork-import ~/.claude/skills/cowork-import
+for s in cowork-use cowork-plan cowork-import cowork-status cowork-allocation cowork-triage; do
+  ln -s ~/cowork-skill/$s ~/.claude/skills/$s
+done
 ```
 
 อัปเดตล่าสุดเมื่อไหร่ก็ `git pull` ในโฟลเดอร์ repo
