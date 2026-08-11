@@ -32,6 +32,19 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 - **มี → นี่คือทางหลัก** อ่าน/สร้าง/แก้/มอบหมายงานสดผ่าน tool ได้เลย · **ห้าม**บอกผู้ใช้ว่า "Cowork ไม่มี API" หรือให้ไป export ไฟล์
 - **ไม่มี → หยุดใช้ skill นี้** ไปใช้ `cowork-import` (สาย .xlsx) แทน
 
+## มี connector แต่ไม่เห็น tool ที่ skill อ้างถึง
+รายการ tool ถูก "ถ่ายภาพไว้" ตอนเชื่อม connector ครั้งแรก แต่ Cowork เพิ่ม tool ใหม่เรื่อยๆ —
+ของที่เชื่อมไว้นานแล้วจึงมักขาดตัวใหม่ (เช่น `portfolio_pulse`, `project_deep_dive`,
+`estimate_accuracy`, `list_trash`, `restore_task`)
+
+ถ้าเรียกไม่ได้:
+1. **อย่าบอกว่า Cowork ทำไม่ได้** และอย่าเงียบๆ ถอยไปดึง list ดิบมานับเอง
+2. บอกผู้ใช้สั้นๆ ว่า connector น่าจะเป็นรายการเก่า → **ตัดการเชื่อมต่อ Cowork แล้วเชื่อมใหม่** ในหน้าตั้งค่า connector แล้ว tool ชุดใหม่จะขึ้นเอง
+3. ระหว่างนี้ทำเท่าที่ tool ที่มีทำได้ แล้วบอกให้ชัดว่าส่วนไหนยังขาด — ทางถอยที่ใกล้เคียงที่สุด:
+   - `portfolio_pulse` → `list_projects` + `capacity_report` (+ `whats_overdue`)
+   - `project_deep_dive` → `project_health` + `list_project_tasks` + `list_project_directory`
+   - `list_trash` / `restore_*` → ยังไม่มีทางถอย บอกผู้ใช้ให้กู้คืนในแอป
+
 ## ขอบเขต skill นี้ (Skill Boundaries)
 - **ตัวนี้ทำ:** กติกาการขับ connector ให้ถูก — อ่านข้อมูล, เขียนงานเดี่ยว/เป็นชุด, มอบหมาย, อ่านเชิงวิเคราะห์
 - **ไปหา `cowork-plan`:** ตั้งโปรเจกต์/เฟสใหม่จากบรีฟ end-to-end (สร้าง stage → เรียงงาน → ประเมิน → มอบหมาย)
