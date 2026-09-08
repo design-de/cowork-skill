@@ -1,7 +1,7 @@
 # Cowork skills
 
 ตระกูล Claude skill ที่สอน AI ให้ทำงานกับ **Cowork** (แอปจัดการงานของทีม) ได้เก่งขึ้น
-โครง Cowork: **Client → Project → Stage (ช่วงงาน) → Task (งาน) → Checklist**
+โครง Cowork: **Client → Project → Stage (ช่วงงาน) → Task (งาน) → Sub-task (งานย่อย ชั้นเดียว)** — รายละเอียดแต่ละชั้นดูบล็อกโมเดลใน `cowork-use/SKILL.md` (generate จากแอป ห้ามแก้มือ)
 
 > ทิศทางใหญ่: Cowork เปิดเป็น **API/MCP** ให้แต่ละคนทำงานผ่าน AI ของตัวเอง โดยแพลตฟอร์มเป็น
 > "กรรมการถือกติกา" (RLS + สิทธิ์ + ไม่มีลบถาวร + activity log) ให้ทุกคนเห็นภาพเดียวกัน

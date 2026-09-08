@@ -13,7 +13,7 @@ description: >-
 # Cowork — import file (.xlsx)
 
 skill นี้ = **สายไฟล์** ของ Cowork: ช่วย AI สร้างไฟล์ `.xlsx` ที่อัปโหลดเข้าโปรเจกต์ได้ ผ่านหน้า preview ให้คนอนุมัติเสมอ (AI เสนอ — คนตัดสิน)
-โครง Cowork คือ **Project → Stage (ช่วงงาน) → Task (งาน) → Checklist**
+โครง Cowork คือ **Project → Stage (ช่วงงาน) → Task (งาน) → Sub-task (งานย่อย — ในไฟล์ระบุด้วยคอลัมน์ `Parent`)** — บล็อกโมเดลเต็มอยู่ใน `reference/system-context.md`
 
 ## ⭐ ก่อนอื่น — มี connector ไหม (ถ้ามี นี่ไม่ใช่ skill ที่ควรใช้)
 
