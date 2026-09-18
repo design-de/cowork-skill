@@ -1,21 +1,21 @@
 ---
-name: cowork-status
+name: cobik-status
 description: >-
-  Report the health and status of Cowork work — a weekly readout, a project
+  Report the health and status of cobik work — a weekly readout, a project
   check-up, or a portfolio pulse. Use when the user asks "how are we doing",
   "status this week", "is this project on track", "what's at risk", "who's
   overloaded", or wants delivery / win-rate trends. Read-only: it produces a
-  readout, not changes. Load together with `cowork-use`. To act on what you
-  find, hand off to `cowork-triage` (fix the board) or `cowork-allocation`
+  readout, not changes. Load together with `cobik-use`. To act on what you
+  find, hand off to `cobik-triage` (fix the board) or `cobik-allocation`
   (rebalance people).
 ---
 
-# Cowork — รายงานสถานะ/สุขภาพ (readout)
+# cobik — รายงานสถานะ/สุขภาพ (readout)
 
 ตอบคำถาม **"เราเป็นไงบ้าง"** ด้วยบทสรุปที่อ่านแล้วรู้เรื่อง — ไม่ใช่กองข้อมูลดิบ
-โหลดคู่กับ **`cowork-use`** · skill นี้ **อ่านล้วน** (ไม่แก้อะไร)
+โหลดคู่กับ **`cobik-use`** · skill นี้ **อ่านล้วน** (ไม่แก้อะไร)
 
-<!-- MODEL:START · generate จาก cowork-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
+<!-- MODEL:START · generate จาก cobik-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
 ```
 Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Task (งาน) → Sub-task (งานย่อย — ชั้นเดียว ติ๊กแยกได้ มีคน/วัน/ชั่วโมงของตัวเองได้)
 ```
@@ -28,7 +28,7 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 <!-- MODEL:END -->
 
 ## กฎเหล็กของ skill นี้
-**อย่าดึง list ดิบมานับเอง** — Cowork มี read เชิงวิเคราะห์ที่ดึงครั้งเดียวได้ภาพครบ ใช้พวกนี้ก่อนเสมอ
+**อย่าดึง list ดิบมานับเอง** — cobik มี read เชิงวิเคราะห์ที่ดึงครั้งเดียวได้ภาพครบ ใช้พวกนี้ก่อนเสมอ
 
 ## เลือกขอบเขตก่อน
 - **โปรเจกต์เดียว** → `project_deep_dive` (สุขภาพ, stage, งานที่ต้องสน, workload รายคน, ส่งตรงเวลา, งบ, activity — ครั้งเดียวจบ) · ใส่ `detail:"full"` เฉพาะตอนต้องการทุกแถวจริงๆ
@@ -39,7 +39,7 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 สรุปเป็น 3 ส่วนเสมอ:
 1. **บนเส้นทาง** — คืบหน้าเท่าไร อะไรเสร็จ
 2. **ต้องระวัง** — overdue / unassigned / คนล้น (เกิน ~70–80%) / เดดไลน์ใกล้
-3. **ควรทำอะไรต่อ** — 1–3 ข้อ ชี้ชัด (เช่น "งาน X ไม่มีคนทำ 3 ชิ้น" → ชวนไป `cowork-triage`)
+3. **ควรทำอะไรต่อ** — 1–3 ข้อ ชี้ชัด (เช่น "งาน X ไม่มีคนทำ 3 ชิ้น" → ชวนไป `cobik-triage`)
 
 > ภาษา: ตัวเลข/ชื่อโปรเจกต์เป็นอังกฤษ คำอธิบายเป็นไทย
 
@@ -47,6 +47,6 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 ผู้ใช้: "สรุปสถานะทีมสัปดาห์นี้"
 1. `portfolio_pulse` (ครั้งเดียว)
 2. อ่านค่า: 5 โปรเจกต์เดิน · 2 งาน overdue ที่ Project A · May โหลด 95% (ล้น)
-3. readout: "ภาพรวมโอเค — เร่ง 2 งานเลยกำหนดที่ Project A, และ May งานล้น (95%) ควรเกลี่ย → ดู `cowork-allocation`"
+3. readout: "ภาพรวมโอเค — เร่ง 2 งานเลยกำหนดที่ Project A, และ May งานล้น (95%) ควรเกลี่ย → ดู `cobik-allocation`"
 
-> ถ้าจะ **ลงมือแก้** จาก readout: board ops ไป `cowork-triage` · เกลี่ยคน ไป `cowork-allocation` (skill นี้ไม่แก้เอง)
+> ถ้าจะ **ลงมือแก้** จาก readout: board ops ไป `cobik-triage` · เกลี่ยคน ไป `cobik-allocation` (skill นี้ไม่แก้เอง)

@@ -1,21 +1,21 @@
 ---
-name: cowork-use
+name: cobik-use
 description: >-
-  Foundational guide for operating the Cowork project-management connector (MCP)
+  Foundational guide for operating the cobik project-management connector (MCP)
   — how to read and act on the team's live projects, stages, and tasks
-  correctly. Load this FIRST before any Cowork connector work. Use when the user
+  correctly. Load this FIRST before any cobik connector work. Use when the user
   asks to view, plan, create, update, assign, reassign, or analyze work in
-  Cowork AND the Cowork tools (list_projects, create_task, assign_task, …) are
-  available. For end-to-end planning from a brief, also load `cowork-plan`. When
+  cobik AND the cobik tools (list_projects, create_task, assign_task, …) are
+  available. For end-to-end planning from a brief, also load `cobik-plan`. When
   NO connector is available (build an .xlsx import file instead), use
-  `cowork-import`.
+  `cobik-import`.
 ---
 
-# Cowork — ขับ connector สด (ตัวฐาน)
+# cobik — ขับ connector สด (ตัวฐาน)
 
-Cowork คือแอปจัดการงานของทีม skill นี้สอน AI ให้ **"ขับ tool สดของ Cowork ให้เก่งและปลอดภัย"** — เป็นรากที่ skill งานอื่น (`cowork-plan` และอื่นๆ) ห้อยอยู่
+cobik คือแอปจัดการงานของทีม skill นี้สอน AI ให้ **"ขับ tool สดของ cobik ให้เก่งและปลอดภัย"** — เป็นรากที่ skill งานอื่น (`cobik-plan` และอื่นๆ) ห้อยอยู่
 
-<!-- MODEL:START · generate จาก cowork-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
+<!-- MODEL:START · generate จาก cobik-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
 ```
 Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Task (งาน) → Sub-task (งานย่อย — ชั้นเดียว ติ๊กแยกได้ มีคน/วัน/ชั่วโมงของตัวเองได้)
 ```
@@ -28,18 +28,18 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 <!-- MODEL:END -->
 
 ## ⭐ ก่อนอื่น — มี connector ไหม
-ดูว่ามี tool ของ Cowork ให้เรียกอยู่ไหม (`list_projects`, `get_me`, `create_task`, `assign_task` …)
-- **มี → นี่คือทางหลัก** อ่าน/สร้าง/แก้/มอบหมายงานสดผ่าน tool ได้เลย · **ห้าม**บอกผู้ใช้ว่า "Cowork ไม่มี API" หรือให้ไป export ไฟล์
-- **ไม่มี → หยุดใช้ skill นี้** ไปใช้ `cowork-import` (สาย .xlsx) แทน
+ดูว่ามี tool ของ cobik ให้เรียกอยู่ไหม (`list_projects`, `get_me`, `create_task`, `assign_task` …)
+- **มี → นี่คือทางหลัก** อ่าน/สร้าง/แก้/มอบหมายงานสดผ่าน tool ได้เลย · **ห้าม**บอกผู้ใช้ว่า "cobik ไม่มี API" หรือให้ไป export ไฟล์
+- **ไม่มี → หยุดใช้ skill นี้** ไปใช้ `cobik-import` (สาย .xlsx) แทน
 
 ## มี connector แต่ไม่เห็น tool ที่ skill อ้างถึง
-รายการ tool ถูก "ถ่ายภาพไว้" ตอนเชื่อม connector ครั้งแรก แต่ Cowork เพิ่ม tool ใหม่เรื่อยๆ —
+รายการ tool ถูก "ถ่ายภาพไว้" ตอนเชื่อม connector ครั้งแรก แต่ cobik เพิ่ม tool ใหม่เรื่อยๆ —
 ของที่เชื่อมไว้นานแล้วจึงมักขาดตัวใหม่ (เช่น `portfolio_pulse`, `project_deep_dive`,
 `estimate_accuracy`, `list_trash`, `restore_task`)
 
 ถ้าเรียกไม่ได้:
-1. **อย่าบอกว่า Cowork ทำไม่ได้** และอย่าเงียบๆ ถอยไปดึง list ดิบมานับเอง
-2. บอกผู้ใช้สั้นๆ ว่า connector น่าจะเป็นรายการเก่า → **ตัดการเชื่อมต่อ Cowork แล้วเชื่อมใหม่** ในหน้าตั้งค่า connector แล้ว tool ชุดใหม่จะขึ้นเอง
+1. **อย่าบอกว่า cobik ทำไม่ได้** และอย่าเงียบๆ ถอยไปดึง list ดิบมานับเอง
+2. บอกผู้ใช้สั้นๆ ว่า connector น่าจะเป็นรายการเก่า → **ตัดการเชื่อมต่อ cobik แล้วเชื่อมใหม่** ในหน้าตั้งค่า connector แล้ว tool ชุดใหม่จะขึ้นเอง
 3. ระหว่างนี้ทำเท่าที่ tool ที่มีทำได้ แล้วบอกให้ชัดว่าส่วนไหนยังขาด — ทางถอยที่ใกล้เคียงที่สุด:
    - `portfolio_pulse` → `list_projects` + `capacity_report` (+ `whats_overdue`)
    - `project_deep_dive` → `project_health` + `list_project_tasks` + `list_project_directory`
@@ -47,18 +47,18 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 
 ## ขอบเขต skill นี้ (Skill Boundaries)
 - **ตัวนี้ทำ:** กติกาการขับ connector ให้ถูก — อ่านข้อมูล, เขียนงานเดี่ยว/เป็นชุด, มอบหมาย, อ่านเชิงวิเคราะห์
-- **ไปหา `cowork-plan`:** ตั้งโปรเจกต์/เฟสใหม่จากบรีฟ end-to-end (สร้าง stage → เรียงงาน → ประเมิน → มอบหมาย)
-- **ไปหา `cowork-import`:** ทำไฟล์ .xlsx (ตอนไม่มี connector หรือผู้ใช้ขอไฟล์)
-- **ไปหา `cowork-status`:** รายงานสถานะ/สุขภาพ (readout อ่านล้วน — "เราเป็นไงบ้าง")
-- **ไปหา `cowork-allocation`:** เกลี่ยงาน/คาแพซิตี้/ใครว่าง/คนล้น
-- **ไปหา `cowork-triage`:** ดูแลบอร์ดเดิม (เลื่อนวัน/rename/reassign/merge/restore)
+- **ไปหา `cobik-plan`:** ตั้งโปรเจกต์/เฟสใหม่จากบรีฟ end-to-end (สร้าง stage → เรียงงาน → ประเมิน → มอบหมาย)
+- **ไปหา `cobik-import`:** ทำไฟล์ .xlsx (ตอนไม่มี connector หรือผู้ใช้ขอไฟล์)
+- **ไปหา `cobik-status`:** รายงานสถานะ/สุขภาพ (readout อ่านล้วน — "เราเป็นไงบ้าง")
+- **ไปหา `cobik-allocation`:** เกลี่ยงาน/คาแพซิตี้/ใครว่าง/คนล้น
+- **ไปหา `cobik-triage`:** ดูแลบอร์ดเดิม (เลื่อนวัน/rename/reassign/merge/restore)
 
 ## เริ่มยังไง
 1. เรียก **`list_projects`** ก่อนเสมอ (ไม่รับ input) → ได้ทุกโปรเจกต์ที่ผู้ใช้เห็น + id + สถิติงาน · tool อื่นๆ ต้องใช้ `project_id` จากตรงนี้
 2. ยังไม่มีโปรเจกต์เลย? `get_me` ยืนยันว่าเชื่อมต่อติด
 
 ## กติกาทอง (อ่านก่อนลงมือ)
-1. **connector = แหล่งความจริง** ห้ามไปดึงข้อมูล Cowork จากไฟล์ในเครื่อง/export/connector อื่น
+1. **connector = แหล่งความจริง** ห้ามไปดึงข้อมูล cobik จากไฟล์ในเครื่อง/export/connector อื่น
 2. **ห้ามแต่งอีเมล** ผู้รับผิดชอบระบุด้วยอีเมลที่เป็นสมาชิกโปรเจกต์เท่านั้น — ไม่รู้ก็เว้นว่างหรือถาม อย่าเดา
 3. **งานใหม่เริ่มที่ `todo`** · ประเมินชั่วโมงให้สมจริง · ช่อง "ชั่วโมงจริง" ปล่อยว่างจนกว่างานจะเสร็จ
 4. **ชื่อ=EN · ประโยค=TH** ตอนตั้งชื่องาน ใช้ภาษาลูกผสมของทีม (ชื่องาน/สเตจเป็นอังกฤษ คำอธิบายเป็นไทย)

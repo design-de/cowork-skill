@@ -1,6 +1,6 @@
 # Tasks sheet — import contract
 
-> **ไฟล์นี้ถูก generate อัตโนมัติ** จาก `cowork-app/lib/taskImportContract.js` — อย่าแก้ด้วยมือ
+> **ไฟล์นี้ถูก generate อัตโนมัติ** จาก `cobik-app/lib/taskImportContract.js` — อย่าแก้ด้วยมือ
 > แก้สัญญาในแอปแล้วรัน `node scripts/gen-skill-contract.mjs` เพื่ออัปเดตไฟล์นี้ให้ตรงกัน
 > Format version: 2
 >

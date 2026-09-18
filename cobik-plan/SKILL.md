@@ -1,21 +1,21 @@
 ---
-name: cowork-plan
+name: cobik-plan
 description: >-
-  Plan or simulate a Cowork project, pitch, or phase end-to-end — turn a brief
+  Plan or simulate a cobik project, pitch, or phase end-to-end — turn a brief
   into stages, sequenced tasks, realistic estimates, and assignments. Use when
   the user says things like "plan a 3-week pitch", "draft the tasks for this
   project", "break this brief into work", or "set up a new phase". Load together
-  with `cowork-use` (the connector fundamentals). Works live through the
+  with `cobik-use` (the connector fundamentals). Works live through the
   connector by default; if no connector is available or the user wants a file,
-  hand off to `cowork-import`.
+  hand off to `cobik-import`.
 ---
 
-# Cowork — วางแผนจากบรีฟ (playbook)
+# cobik — วางแผนจากบรีฟ (playbook)
 
-เปลี่ยน **บรีฟ → โครงงานที่ลงมือได้จริง** (stage → task → ประเมิน → มอบหมาย) บน Cowork
-โหลดคู่กับ **`cowork-use`** เสมอ (กติกาการขับ connector อยู่ที่นั่น) — ตัวนี้คือ "สูตรวางแผน" ที่ต่อยอด
+เปลี่ยน **บรีฟ → โครงงานที่ลงมือได้จริง** (stage → task → ประเมิน → มอบหมาย) บน cobik
+โหลดคู่กับ **`cobik-use`** เสมอ (กติกาการขับ connector อยู่ที่นั่น) — ตัวนี้คือ "สูตรวางแผน" ที่ต่อยอด
 
-<!-- MODEL:START · generate จาก cowork-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
+<!-- MODEL:START · generate จาก cobik-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
 ```
 Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Task (งาน) → Sub-task (งานย่อย — ชั้นเดียว ติ๊กแยกได้ มีคน/วัน/ชั่วโมงของตัวเองได้)
 ```
@@ -29,7 +29,7 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 
 ## สด หรือ ไฟล์
 - **มี connector →** ทำสดตามสูตรนี้ (สร้าง stage/task ผ่าน tool) — ค่าเริ่มต้น
-- **ไม่มี connector / ผู้ใช้ขอไฟล์ →** ใช้สูตรเดียวกันคิดแผน แต่ไปออกเป็น `.xlsx` ตาม **`cowork-import`**
+- **ไม่มี connector / ผู้ใช้ขอไฟล์ →** ใช้สูตรเดียวกันคิดแผน แต่ไปออกเป็น `.xlsx` ตาม **`cobik-import`**
 
 ## 2 เฟสของโปรเจกต์ (ต้องรู้ก่อนวาง)
 - **pitch** = ช่วงเสนอ/ประมูล (วิจัย ร่างไอเดีย ทำสไลด์) — ยังไม่ใช่งานผลิต
@@ -72,4 +72,4 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 4. `assign_tasks` ตามข้างบน · เช็ค `who_is_free` ว่าช่วงนั้นว่างจริง
 5. สรุปให้ผู้ใช้: "3 งาน · 36h · may 20h / ken 16h — ตกลงไหมก่อนสร้างจริง"
 
-> ถ้ายังไม่มี connector: คิดแผนเดียวกันนี้แล้วไปออกเป็นไฟล์ตาม `cowork-import` (ทุกแถว ID ว่าง = งานใหม่)
+> ถ้ายังไม่มี connector: คิดแผนเดียวกันนี้แล้วไปออกเป็นไฟล์ตาม `cobik-import` (ทุกแถว ID ว่าง = งานใหม่)

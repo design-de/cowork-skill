@@ -1,22 +1,22 @@
 ---
-name: cowork-triage
+name: cobik-triage
 description: >-
-  Maintain an existing Cowork board and respond to change — bulk status updates,
+  Maintain an existing cobik board and respond to change — bulk status updates,
   renames, shifting dates when a deadline moves, reassigning a departing person's
   work, reordering or merging stages, and restoring deleted items from trash. Use
   when the user says "the deadline moved, shift everything", "rename all X to Y",
   "reassign someone's tasks", "clean up the board", "merge these stages", or
-  "restore that deleted task". Load together with `cowork-use`. For planning a NEW
-  project from scratch use `cowork-plan`; for capacity rebalancing use
-  `cowork-allocation`.
+  "restore that deleted task". Load together with `cobik-use`. For planning a NEW
+  project from scratch use `cobik-plan`; for capacity rebalancing use
+  `cobik-allocation`.
 ---
 
-# Cowork — ดูแลบอร์ดเดิม/รับมือความเปลี่ยนแปลง (playbook)
+# cobik — ดูแลบอร์ดเดิม/รับมือความเปลี่ยนแปลง (playbook)
 
 บอร์ดมีอยู่แล้ว แล้ว **มีอะไรเปลี่ยน** — เดดไลน์เลื่อน คนออก ชื่อผิด สเตจรก
-skill นี้ = ปรับของเดิมเป็นชุดให้เร็วและปลอดภัย · โหลดคู่กับ **`cowork-use`**
+skill นี้ = ปรับของเดิมเป็นชุดให้เร็วและปลอดภัย · โหลดคู่กับ **`cobik-use`**
 
-<!-- MODEL:START · generate จาก cowork-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
+<!-- MODEL:START · generate จาก cobik-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
 ```
 Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Task (งาน) → Sub-task (งานย่อย — ชั้นเดียว ติ๊กแยกได้ มีคน/วัน/ชั่วโมงของตัวเองได้)
 ```
@@ -38,7 +38,7 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 | เดดไลน์เลื่อน ขยับงานเป็นชุด | `shift_dates` (ตามกฎ เช่น +7 วัน) |
 | เปลี่ยนสถานะหลายงานทีเดียว | `update_tasks` |
 | ชื่อผิด/เปลี่ยนคำเป็นชุด | `rename_tasks` (find→replace) |
-| คนออก โยนงานต่อ | `reassign_work` (ดู `cowork-allocation` ถ้าต้องเลือกคนรับ) |
+| คนออก โยนงานต่อ | `reassign_work` (ดู `cobik-allocation` ถ้าต้องเลือกคนรับ) |
 | จัดลำดับ/รวมสเตจ | `reorder_stages` · `merge_stage` |
 | เผลอลบ อยากได้คืน | `list_trash` → `restore_task` / `restore_stage` (คืนพร้อม id เดิม) |
 
@@ -48,4 +48,4 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 2. สรุป: "จะเลื่อน Start/Due 12 งาน +7 วัน — โอเคไหม"
 3. ตกลง → `shift_dates` (+7d, เฉพาะชุดที่กรอง)
 
-> ไม่มีอะไรหายถาวร — ลบแล้วกู้จาก trash ได้ · การกระทำทุกอย่างถูกบันทึกใน activity log (อยู่ใน `cowork-use`)
+> ไม่มีอะไรหายถาวร — ลบแล้วกู้จาก trash ได้ · การกระทำทุกอย่างถูกบันทึกใน activity log (อยู่ใน `cobik-use`)

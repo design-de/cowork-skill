@@ -1,26 +1,26 @@
 ---
-name: cowork-import
+name: cobik-import
 description: >-
-  Build a Cowork-ready `.xlsx` import file — for planning offline, or when NO
-  Cowork connector (MCP) is available. Use when the user asks for a file, has no
-  live Cowork tools, or wants to prepare tasks to upload and approve in the app's
+  Build a cobik-ready `.xlsx` import file — for planning offline, or when NO
+  cobik connector (MCP) is available. Use when the user asks for a file, has no
+  live cobik tools, or wants to prepare tasks to upload and approve in the app's
   Import preview. Covers the exact import-file contract (columns, rules) so the
-  file loads cleanly. If the Cowork connector IS available, prefer working live —
-  load `cowork-use` (and `cowork-plan` for planning from a brief) instead of
+  file loads cleanly. If the cobik connector IS available, prefer working live —
+  load `cobik-use` (and `cobik-plan` for planning from a brief) instead of
   making a file.
 ---
 
-# Cowork — import file (.xlsx)
+# cobik — import file (.xlsx)
 
-skill นี้ = **สายไฟล์** ของ Cowork: ช่วย AI สร้างไฟล์ `.xlsx` ที่อัปโหลดเข้าโปรเจกต์ได้ ผ่านหน้า preview ให้คนอนุมัติเสมอ (AI เสนอ — คนตัดสิน)
-โครง Cowork คือ **Project → Stage (ช่วงงาน) → Task (งาน) → Sub-task (งานย่อย — ในไฟล์ระบุด้วยคอลัมน์ `Parent`)** — บล็อกโมเดลเต็มอยู่ใน `reference/system-context.md`
+skill นี้ = **สายไฟล์** ของ cobik: ช่วย AI สร้างไฟล์ `.xlsx` ที่อัปโหลดเข้าโปรเจกต์ได้ ผ่านหน้า preview ให้คนอนุมัติเสมอ (AI เสนอ — คนตัดสิน)
+โครง cobik คือ **Project → Stage (ช่วงงาน) → Task (งาน) → Sub-task (งานย่อย — ในไฟล์ระบุด้วยคอลัมน์ `Parent`)** — บล็อกโมเดลเต็มอยู่ใน `reference/system-context.md`
 
 ## ⭐ ก่อนอื่น — มี connector ไหม (ถ้ามี นี่ไม่ใช่ skill ที่ควรใช้)
 
-ถ้ามีเครื่องมือ Cowork ให้เรียก (`list_projects`, `create_task`, `assign_task` …) แปลว่า **เชื่อม connector สดอยู่** — ทางสดดีกว่าไฟล์:
+ถ้ามีเครื่องมือ cobik ให้เรียก (`list_projects`, `create_task`, `assign_task` …) แปลว่า **เชื่อม connector สดอยู่** — ทางสดดีกว่าไฟล์:
 
-- ไปโหลด **`cowork-use`** (วิธีขับ connector ให้ถูก) และ **`cowork-plan`** (วางแผนจากบรีฟ) แล้วทำงานสดผ่าน tool
-- **ห้าม**บอกผู้ใช้ว่า "Cowork ไม่มี API" แล้วบังคับให้ทำไฟล์
+- ไปโหลด **`cobik-use`** (วิธีขับ connector ให้ถูก) และ **`cobik-plan`** (วางแผนจากบรีฟ) แล้วทำงานสดผ่าน tool
+- **ห้าม**บอกผู้ใช้ว่า "cobik ไม่มี API" แล้วบังคับให้ทำไฟล์
 - **ใช้ skill นี้ต่อเมื่อ:** ไม่มี connector · หรือผู้ใช้ขอเป็นไฟล์เอง (วางแผนออฟไลน์ / เก็บไว้ก่อน)
 
 ## กติกาทอง (อ่านก่อนเสมอ)
@@ -34,7 +34,7 @@ skill นี้ = **สายไฟล์** ของ Cowork: ช่วย AI �
 
 - อยาก **สร้างไฟล์ .xlsx เพื่อ import** งานเข้าโปรเจกต์ (ไม่มี connector / ขอเป็นไฟล์)
 - วางแผนงานแบบ **ออฟไลน์** เพื่อเก็บไว้อัปโหลดทีหลัง
-- ถามเรื่อง **สัญญาไฟล์** import (คอลัมน์/กติกา) — สำหรับการวางแผนเชิงเนื้อหา (เฟส/บทบาท/ประเมินเวลา) ดู `cowork-plan`
+- ถามเรื่อง **สัญญาไฟล์** import (คอลัมน์/กติกา) — สำหรับการวางแผนเชิงเนื้อหา (เฟส/บทบาท/ประเมินเวลา) ดู `cobik-plan`
 
 ## ขั้นตอนแนะนำ (สายไฟล์)
 
@@ -60,6 +60,6 @@ skill นี้ = **สายไฟล์** ของ Cowork: ช่วย AI �
 | ร่าง mood/direction | todo | high | pitch | Design | may@studio.co | 2026-07-17 | 2026-07-21 | 12 |  |  |
 | ทำสไลด์ pitch | todo | high | pitch | Design |  | 2026-07-22 | 2026-07-25 | 16 |  |  |
 
-แล้วบอกผู้ใช้ว่า "เปิดโปรเจกต์ใน Cowork → ปุ่ม Import → อัปโหลดไฟล์ → ตรวจในหน้า preview แล้วกดยืนยัน"
+แล้วบอกผู้ใช้ว่า "เปิดโปรเจกต์ใน cobik → ปุ่ม Import → อัปโหลดไฟล์ → ตรวจในหน้า preview แล้วกดยืนยัน"
 
-> **ต้นฉบับของสัญญานี้อยู่ในตัวแอป** (`cowork-app/lib/taskImportContract.mjs`) และ [reference/tasks-contract.md](reference/tasks-contract.md) ถูก generate จากที่นั่น — ห้ามแก้ด้วยมือ ดูวันที่ generate ท้ายหัวไฟล์สัญญา
+> **ต้นฉบับของสัญญานี้อยู่ในตัวแอป** (`cobik-app/lib/taskImportContract.mjs`) และ [reference/tasks-contract.md](reference/tasks-contract.md) ถูก generate จากที่นั่น — ห้ามแก้ด้วยมือ ดูวันที่ generate ท้ายหัวไฟล์สัญญา

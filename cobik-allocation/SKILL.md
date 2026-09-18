@@ -1,20 +1,20 @@
 ---
-name: cowork-allocation
+name: cobik-allocation
 description: >-
-  Balance people's workload in Cowork — see who is free, who is overloaded, and
+  Balance people's workload in cobik — see who is free, who is overloaded, and
   move work to even it out. Use when the user asks "who's free", "is someone
   overloaded", "rebalance the workload", "spread this out", "can we take on more",
-  or "who should do this". Load together with `cowork-use`. For a status readout
-  use `cowork-status`; for date-shifting and general board upkeep use
-  `cowork-triage`.
+  or "who should do this". Load together with `cobik-use`. For a status readout
+  use `cobik-status`; for date-shifting and general board upkeep use
+  `cobik-triage`.
 ---
 
-# Cowork — เกลี่ยงาน/คาแพซิตี้ (playbook)
+# cobik — เกลี่ยงาน/คาแพซิตี้ (playbook)
 
 ดูภาระงานรายคน แล้ว **ย้ายงานจากคนล้น → คนว่าง** ให้สมดุล
-โหลดคู่กับ **`cowork-use`** · เพดานที่ถือว่าเริ่มตึง ~**70–80%** ของเวลา
+โหลดคู่กับ **`cobik-use`** · เพดานที่ถือว่าเริ่มตึง ~**70–80%** ของเวลา
 
-<!-- MODEL:START · generate จาก cowork-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
+<!-- MODEL:START · generate จาก cobik-app/lib/modelContext.js (รัน node scripts/gen-skill-context.mjs) — ห้ามแก้มือระหว่าง marker -->
 ```
 Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Task (งาน) → Sub-task (งานย่อย — ชั้นเดียว ติ๊กแยกได้ มีคน/วัน/ชั่วโมงของตัวเองได้)
 ```
@@ -38,7 +38,7 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 
 **3. เกลี่ย (ทำอย่างระวัง)**
 - `reassign_work` = ย้ายงานเป็นชุดตามกฎ (จากคนล้น → คนว่าง) — เครื่องมือหลักของ skill นี้
-- ต้องการแค่ถอดผู้รับ → `unassign_tasks` · เปลี่ยนรายตัว → ผ่าน `cowork-use`
+- ต้องการแค่ถอดผู้รับ → `unassign_tasks` · เปลี่ยนรายตัว → ผ่าน `cobik-use`
 - **ห้ามเดาอีเมล** — ปลายทางต้องเป็นสมาชิกโปรเจกต์
 - **สรุปก่อนยิง** — reassign = เปลี่ยนเจ้าของงาน บอกผู้ใช้ว่า "ย้าย N งานจาก A→B" ให้เห็นก่อนกดจริง
 
@@ -49,4 +49,4 @@ Client (ลูกค้า) → Project → Stage (ช่วงงาน) → Ta
 3. เสนอ: "ย้าย 2 งาน design ของ May (ช่วง 14–18) ไป Ken → May เหลือ ~70%" — โอเคไหม
 4. ตกลง → `reassign_work` (May→Ken, กรองเฉพาะ 2 งานนั้น)
 
-> เลื่อนวันแทนการย้ายคน (ยืดเดดไลน์) = งานของ `cowork-triage` · อยากได้แค่ readout = `cowork-status`
+> เลื่อนวันแทนการย้ายคน (ยืดเดดไลน์) = งานของ `cobik-triage` · อยากได้แค่ readout = `cobik-status`
