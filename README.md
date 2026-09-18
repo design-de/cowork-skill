@@ -25,7 +25,7 @@
 แต่ละ skill = โฟลเดอร์หนึ่งใต้ `~/.claude/skills/` โคลน repo แล้ววางโฟลเดอร์ skill ที่ต้องการ (หรือ symlink ทั้งชุด):
 
 ```bash
-git clone <repo-url> ~/cobik-skill
+git clone https://github.com/design-de/cowork-skill.git ~/cobik-skill
 for s in cobik-use cobik-plan cobik-import cobik-status cobik-allocation cobik-triage; do
   ln -s ~/cobik-skill/$s ~/.claude/skills/$s
 done
@@ -33,11 +33,13 @@ done
 
 อัปเดตล่าสุดเมื่อไหร่ก็ `git pull` ในโฟลเดอร์ repo
 
+> **หมายเหตุชื่อ repo:** ตัว repo ยังชื่อ `cowork-skill` บน GitHub อยู่ (จะเปลี่ยนเป็น `cobik-skill` รอบหน้า พร้อมโดเมนใหม่) — โคลนด้วย URL ด้านบนได้ตามปกติ
+
 > **เปลี่ยนชื่อจาก cowork → cobik (2026-09):** ใครเคยลง `cowork-*` (หรือ `cowork` ตัวเดียวรุ่นแรก) ไว้ ให้ถอดของเก่าแล้วต่อใหม่ครั้งเดียว:
 >
 > ```bash
 > rm -f ~/.claude/skills/cowork ~/.claude/skills/cowork-{use,plan,import,status,allocation,triage}
-> mv ~/cowork-skill ~/cobik-skill 2>/dev/null || git clone <repo-url> ~/cobik-skill
+> mv ~/cowork-skill ~/cobik-skill 2>/dev/null || git clone https://github.com/design-de/cowork-skill.git ~/cobik-skill
 > cd ~/cobik-skill && git pull
 > for s in cobik-use cobik-plan cobik-import cobik-status cobik-allocation cobik-triage; do
 >   ln -sf ~/cobik-skill/$s ~/.claude/skills/$s
